@@ -6,8 +6,8 @@ from models.store import StoreModel
 class Store(Resource):
 
     @jwt_required()
-    def get(self):
-        store = StoreModel.find_by_name()
+    def get(self, name):
+        store = StoreModel.find_by_name(name)
         if store:
             return store.json()
         return {'message': 'Store not found'}, 404
