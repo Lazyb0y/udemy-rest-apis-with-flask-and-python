@@ -30,7 +30,7 @@ def add_claims_to_jwt(identity):
 
 
 @jwt.expired_token_loader
-def expired_token_callback():
+def expired_token_callback(jwt_header, jwt_payload):
     return jsonify({
         'description': 'The token has expired.',
         'error': 'TOKEN_EXPIRED'
@@ -46,7 +46,7 @@ def invalid_token_callback(error):
 
 
 @jwt.needs_fresh_token_loader
-def token_not_fresh_callback():
+def token_not_fresh_callback(jwt_header, jwt_payload):
     return jsonify({
         'description': 'The token is not fresh.',
         'error': 'FRESH_TOKEN_REQUIRED'
@@ -54,7 +54,7 @@ def token_not_fresh_callback():
 
 
 @jwt.revoked_token_loader
-def revoked_token_callback():
+def revoked_token_callback(jwt_header, jwt_payload):
     return jsonify({
         'description': 'The token has been revoked.',
         'error': 'TOKEN_REVOKED'
